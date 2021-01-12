@@ -1,3 +1,11 @@
-<ng-container *ngFor="let game of games | async">
-  <p>{{ game.name }}</p>
-</ng-container>
+<div class="row row-cols-4">
+  <ng-container *ngFor="let game of games | async">
+    <div class="col">
+      <div>
+        <img [src]="game.pictureUri" />
+      </div>
+      <div>{{ game.name }}</div>
+      <div>${{ game.price }}</div>
+    </div>
+  </ng-container>
+</div>

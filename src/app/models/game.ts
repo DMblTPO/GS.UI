@@ -3,6 +3,6 @@ export class Game {
   name: string;
   description: string;
   genre: string[];
-  picUri: string;
+  pictureUri: string;
   price: number;
 }

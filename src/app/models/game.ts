@@ -4,5 +4,6 @@ export class Game {
   description: string;
   genre: string[];
   pictureUri: string;
+  pictureWideUri: string;
   price: number;
 }

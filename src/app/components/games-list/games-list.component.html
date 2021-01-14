@@ -1,11 +1,29 @@
 <div class="row row-cols-4">
   <ng-container *ngFor="let game of games | async">
     <div class="col">
-      <div>
-        <img [src]="game.pictureUri" />
+      <div class="row row-cols-1">
+        <ng-container
+          [ngTemplateOutlet]="game.pictureWideUri ? wideDice : simpleDice"
+          [ngTemplateOutletContext]="{ game: game }"
+        ></ng-container>
       </div>
-      <div>{{ game.name }}</div>
-      <div>${{ game.price }}</div>
     </div>
   </ng-container>
 </div>
+
+<ng-template #simpleDice let-game="game">
+  <div class="col">
+    <img [src]="game.pictureUri" style="height: 200px" />
+  </div>
+  <div class="col">{{ game.name }}</div>
+  <div class="col">${{ game.price }}</div>
+</ng-template>
+
+<ng-template #wideDice let-game="game">
+  <div class="col-6" [ngStyle]="{ background: 'url(\'' + game.pictureWideUri + '\') no-repeat' }">
+    <div class="row row-cols-1">
+      <div class="col align-self-end">{{ game.name }}</div>
+      <div class="col align-self-end">${{ game.price }}</div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,28 @@
+.search-input {
+  width: 250px;
+  img {
+    margin: 0 8px 2px 8px;
+    filter: invert(1);
+  }
+  input {
+    color: white;
+    border: 0 solid;
+    background-color: transparent;
+  }
+  input:focus {
+    outline: none;
+  }
+}
+
+.dice {
+  background-repeat: no-repeat;
+  height: 310px;
+}
+
+.dice-narrow {
+  background-size: 310px;
+}
+
+.dice-wide {
+  background-size: auto 310px;
+}

@@ -1,29 +1,43 @@
-<div class="row row-cols-4">
-  <ng-container *ngFor="let game of games | async">
-    <div class="col">
-      <div class="row row-cols-1">
-        <ng-container
-          [ngTemplateOutlet]="game.pictureWideUri ? wideDice : simpleDice"
-          [ngTemplateOutletContext]="{ game: game }"
-        ></ng-container>
+<div class="container bg-secondary h-100">
+  <div class="row p-2">
+    <div class="col d-flex align-items-center">
+      <div class="float-left">
+        <button type="button" class="btn btn-secondary btn-sm">+ Add genre</button>
       </div>
     </div>
-  </ng-container>
-</div>
-
-<ng-template #simpleDice let-game="game">
-  <div class="col">
-    <img [src]="game.pictureUri" style="height: 200px" />
-  </div>
-  <div class="col">{{ game.name }}</div>
-  <div class="col">${{ game.price }}</div>
-</ng-template>
-
-<ng-template #wideDice let-game="game">
-  <div class="col-6" [ngStyle]="{ background: 'url(\'' + game.pictureWideUri + '\') no-repeat' }">
-    <div class="row row-cols-1">
-      <div class="col align-self-end">{{ game.name }}</div>
-      <div class="col align-self-end">${{ game.price }}</div>
+    <div class="col d-flex align-items-center justify-content-end">
+      <div class="float-right">
+        <div class="search-input bg-dark">
+          <img src="/assets/search.svg" height="18" width="18" />
+          <input type="text" placeholder="...search" />
+        </div>
+      </div>
     </div>
   </div>
-</ng-template>
+
+  <div class="container bg-secondary">
+    <div class="row">
+      <ng-container *ngFor="let game of games | async">
+        <div class="col" [ngClass]="game.pictureWideUri ? 'col-sm-6' : 'col-sm-3'">
+          <div class="row row-cols-1">
+            <div
+              class="col m-2 dice"
+              [ngStyle]="{
+                'background-image':
+                  'url(\'' + (game.pictureWideUri ? game.pictureWideUri : game.pictureUri) + '\')'
+              }"
+              [ngClass]="game.pictureWideUri ? 'dice-wide' : 'dice-narrow'"
+            >
+              <div class="d-flex flex-column justify-content-end well">
+                <div class="h-25">
+                  <h5 class="card-title h-50">${{ game.price }}</h5>
+                  <p class="card-text h-25">{{ game.name }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

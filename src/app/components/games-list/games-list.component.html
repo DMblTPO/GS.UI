@@ -1,15 +1,15 @@
-<div class="container bg-secondary h-100">
-  <div class="row p-2">
+<div class="container main-list bg-secondary h-100">
+  <div class="row p-3">
     <div class="col d-flex align-items-center">
       <div class="float-left">
-        <button type="button" class="btn btn-secondary btn-sm">+ Add genre</button>
+        <button type="button" class="btn btn-secondary btn-sm bg-grey">+ Add genre</button>
       </div>
     </div>
     <div class="col d-flex align-items-center justify-content-end">
       <div class="float-right">
-        <div class="search-input bg-dark">
+        <div class="search-input bg-grey">
           <img src="/assets/search.svg" height="18" width="18" />
-          <input type="text" placeholder="...search" />
+          <input type="text" class="text-white" />
         </div>
       </div>
     </div>
@@ -17,27 +17,40 @@
 
   <div class="container bg-secondary">
     <div class="row">
-      <ng-container *ngFor="let game of games | async">
-        <div class="col" [ngClass]="game.pictureWideUri ? 'col-sm-6' : 'col-sm-3'">
-          <div class="row row-cols-1">
-            <div
-              class="col m-2 dice"
-              [ngStyle]="{
-                'background-image':
-                  'url(\'' + (game.pictureWideUri ? game.pictureWideUri : game.pictureUri) + '\')'
-              }"
-              [ngClass]="game.pictureWideUri ? 'dice-wide' : 'dice-narrow'"
-            >
-              <div class="d-flex flex-column justify-content-end well">
-                <div class="h-25">
-                  <h5 class="card-title h-50">${{ game.price }}</h5>
-                  <p class="card-text h-25">{{ game.name }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <ng-container *ngFor="let game of games | async; index as i">
+        <ng-container
+          *ngTemplateOutlet="i % 4 === 0 ? wideDice : normalDice; context: { $implicit: game }"
+        >
+        </ng-container>
       </ng-container>
     </div>
   </div>
 </div>
+
+<ng-template #wideDice let-game>
+  <div class="col my-2 col-sm-6">
+    <div
+      class="d-flex align-items-end dice dice-wide"
+      [ngStyle]="{ 'background-image': 'url(\'' + game.pictureWideUri + '\')' }"
+    >
+      <div class="col h-25 well">
+        <h5 class="card-title p-2 h-50">${{ game.price }}</h5>
+        <p class="card-text p-2 h-25">{{ game.name }}</p>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #normalDice let-game>
+  <div class="col my-2 col-sm-3">
+    <div
+      class="d-flex align-items-end dice dice-narrow"
+      [ngStyle]="{ 'background-image': 'url(\'' + game.pictureUri + '\')' }"
+    >
+      <div class="col h-25 well">
+        <h5 class="card-title p-2 h-50">${{ game.price }}</h5>
+        <p class="card-text p-2 h-25">{{ game.name }}</p>
+      </div>
+    </div>
+  </div>
+</ng-template>

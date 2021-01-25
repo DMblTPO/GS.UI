@@ -16,4 +16,11 @@ export class GamesListComponent implements OnInit {
   ngOnInit(): void {
     this.games = this.gamesService.getGames();
   }
+
+  showGenres(genres: string[]) {
+    if (genres && Array.isArray(genres)) {
+      return genres.join(' / ');
+    }
+    return 'RPG / First person shooter';
+  }
 }

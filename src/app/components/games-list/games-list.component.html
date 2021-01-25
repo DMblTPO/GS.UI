@@ -8,7 +8,7 @@
     <div class="col d-flex align-items-center justify-content-end">
       <div class="float-right">
         <div class="search-input bg-grey">
-          <img src="/assets/search.svg" height="18" width="18" />
+          <img src="/assets/search.svg" height="16" width="16" />
           <input type="text" class="text-white" />
         </div>
       </div>
@@ -16,7 +16,7 @@
   </div>
 
   <div class="container bg-secondary">
-    <div class="row">
+    <div class="row my-2">
       <ng-container *ngFor="let game of games | async; index as i">
         <ng-container
           *ngTemplateOutlet="i % 4 === 0 ? wideDice : normalDice; context: { $implicit: game }"
@@ -28,29 +28,42 @@
 </div>
 
 <ng-template #wideDice let-game>
-  <div class="col my-2 col-sm-6">
+  <div class="col mb-5 col-sm-6">
     <div
-      class="d-flex align-items-end dice dice-wide"
+      class="d-flex align-items-end dice"
       [ngStyle]="{ 'background-image': 'url(\'' + game.pictureWideUri + '\')' }"
     >
-      <div class="col h-25 well">
-        <h5 class="card-title p-2 h-50">${{ game.price }}</h5>
-        <p class="card-text p-2 h-25">{{ game.name }}</p>
-      </div>
+      <ng-container *ngTemplateOutlet="priceTag; context: { game: game, isWide: true }">
+      </ng-container>
     </div>
   </div>
 </ng-template>
 
 <ng-template #normalDice let-game>
-  <div class="col my-2 col-sm-3">
+  <div class="col mb-5 col-sm-3">
     <div
-      class="d-flex align-items-end dice dice-narrow"
+      class="d-flex align-items-end dice"
       [ngStyle]="{ 'background-image': 'url(\'' + game.pictureUri + '\')' }"
     >
-      <div class="col h-25 well">
-        <h5 class="card-title p-2 h-50">${{ game.price }}</h5>
-        <p class="card-text p-2 h-25">{{ game.name }}</p>
+      <ng-container *ngTemplateOutlet="priceTag; context: { game: game, isWide: false }">
+      </ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #priceTag let-game="game" let-isWide="isWide">
+  <div class="col px-0 price-tag" [ngClass]="isWide ? 'well' : 'bg-secondary'">
+    <div class="row" [ngClass]="{ 'px-3': isWide }">
+      <div class="col">
+        <div class="font-weight-light price">${{ game.price }}</div>
       </div>
+      <div class="col d-flex align-items-center justify-content-end">
+        <button class="btn btn-success btn-sm px-4 float-right font-weight-bold">BUY</button>
+      </div>
+      <div class="w-100"></div>
+      <div class="col text-truncate font-weight-light genres">{{ showGenres(game.genre) }}</div>
+      <div class="w-100"></div>
+      <div class="col text-truncate font-weight-bold description">{{ game.name }}</div>
     </div>
   </div>
 </ng-template>

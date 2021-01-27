@@ -1,23 +1,26 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "experimentalDecorators": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
+    "experimentalDecorators": true,
     "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
     "lib": ["es2018", "dom"],
-    "preserveSymlinks": true
+    "preserveSymlinks": true,
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@environments/*": ["src/environments/*"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
   },
-  "files": ["src/main.ts", "src/polyfills.ts"],
-  "include": ["src/**/*.d.ts"]
+  "exclude": ["node_modules/*", "**/*-aot.ts", "dist", "e2e"]
 }

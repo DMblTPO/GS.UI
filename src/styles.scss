@@ -1,34 +1,38 @@
+@import '_variables';
+
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
 
+@import url('assets/fonts/icomoon.scss');
+
 .gs-body {
   font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
-  background-color: black;
-  color: white;
+  font-size: $root-size;
+  background-color: $col-black;
+  color: $col-white;
 }
 
 .bg-black {
-  background-color: black;
+  background-color: $col-black;
 }
 
 .bg-dark-gs {
-  background-color: #1e1e1e;
+  background-color: $col-dark-grey;
 }
 
 .well {
-  background-color: rgba(10, 10, 10, 0.6);
+  background-color: $col-dark-transparent;
 }
 
 .bg-grey {
-  background-color: #363535 !important;
+  background-color: $col-grey !important;
 }
 
 .bg-dark {
-  background-color: black !important;
+  background-color: $col-black !important;
 }
 
 .bg-secondary {
-  background-color: #1e1e1e !important;
+  background-color: $col-dark-grey !important;
 }

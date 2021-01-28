@@ -1,19 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container px-5 py-2">
-    <a class="navbar-brand" href="#">
-      <span class="logo-icon">
-        <img
-          src="/assets/star-fill.svg"
-          width="30"
-          height="30"
-          class="d-inline-block align-top"
-          alt=""
-          loading="lazy"
-        />
-      </span>
-      <b>Game store</b>
+    <a class="navbar-brand d-table" href="#">
+      <div class="d-table-cell logo-icon my-auto mx-auto text-center"
+        ><span class="icon-gs-star"></span
+      ></div>
+      <div class="d-table-cell pl-1"><b>Game store</b></div>
     </a>
-    <ul class="navbar-nav">
+    <ul class="navbar-nav pt-1">
       <li class="nav-item active">
         <a class="nav-link" href="#">Games <span class="sr-only">(current)</span></a>
       </li>
@@ -28,9 +21,27 @@
       </li>
     </ul>
     <div class="col">
-      <ul class="nav justify-content-end">
-        <li class="nav-item"><a class="nav-link text-secondary" href="#">Sign in</a></li>
+      <ul class="nav justify-content-end user-menu">
+        <ng-container
+          *ngTemplateOutlet="currentUser ? logoutTemplate : signInTemplate"
+        ></ng-container>
       </ul>
     </div>
   </div>
 </nav>
+
+<ng-template #signInTemplate>
+  <li class="nav-item"><a class="nav-link" routerLink="/login">Sign in</a></li>
+</ng-template>
+
+<ng-template #logoutTemplate>
+  <li class="nav-item">
+    <a class="nav-link" href="#">
+      <span class="icon-gs-user"></span>
+      {{ currentUser.userName }}
+    </a></li
+  >
+  <li class="nav-item"
+    ><a class="nav-link" href="#" (click)="logout()"><span class="icon-gs-logout"></span></a
+  ></li>
+</ng-template>

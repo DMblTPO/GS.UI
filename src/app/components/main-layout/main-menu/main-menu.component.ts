@@ -1,7 +1,9 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginComponent } from '@app/components/login';
 import { User } from '@app/models';
 import { AuthenticationService } from '@app/services';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-main-menu',
@@ -10,11 +12,13 @@ import { AuthenticationService } from '@app/services';
 })
 export class MainMenuComponent implements OnInit {
   currentUser: User;
+  bsModalRef: BsModalRef;
 
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private modalService: BsModalService
   ) {}
 
   ngOnInit(): void {
@@ -23,6 +27,10 @@ export class MainMenuComponent implements OnInit {
       this.currentUser = x;
       this.changeDetector.markForCheck();
     });
+  }
+
+  openLoginModal() {
+    this.bsModalRef = this.modalService.show(LoginComponent, { class: 'modal-padding-top' });
   }
 
   logout() {

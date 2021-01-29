@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GamesListComponent } from './components/games-list/games-list.component';
@@ -26,6 +27,7 @@ import { GamesService } from './services/games.service';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ModalModule.forRoot(),
   ],
   providers: [
     GamesService,

@@ -1,0 +1,21 @@
+@import '_variables';
+@import '../main-layout';
+
+$menu-logo-font-size: 12px;
+$menu-logo-font-weight: normal;
+$menu-logo-icon-border: 2px;
+$menu-logo-icon-width: 22px;
+
+.logo-title {
+  @include logo-title($menu-logo-font-size, $menu-logo-font-weight);
+}
+
+.logo-icon {
+  @include logo-icon($menu-logo-icon-border, $menu-logo-icon-width);
+
+  text-decoration: none;
+}
+
+.user-menu {
+  @include user-menu();
+}

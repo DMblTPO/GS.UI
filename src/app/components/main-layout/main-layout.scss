@@ -1,0 +1,17 @@
+@mixin logo-title($font-size, $font-weight) {
+  font-size: $font-size;
+  font-weight: $font-weight;
+}
+
+@mixin logo-icon($border-size, $width, $color: white) {
+  border: $border-size solid $color;
+  border-radius: 50%;
+  width: $width;
+}
+
+@mixin user-menu($color: white) {
+  a {
+    color: $color;
+    text-decoration: none;
+  }
+}

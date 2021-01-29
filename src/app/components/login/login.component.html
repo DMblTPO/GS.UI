@@ -1,5 +1,5 @@
 ﻿<div class="col-md-6 offset-md-3 mt-5">
-  <div class="card">
+  <div class="card bg-light-grey-gs text-dark">
     <h4 class="card-header">Please login</h4>
     <div class="card-body">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -27,7 +27,7 @@
             <div *ngIf="frm.password.errors.required">Password is required</div>
           </div>
         </div>
-        <button [disabled]="loading" class="btn btn-primary" (click)="onSubmit()">
+        <button [disabled]="loading" class="btn btn-success" (click)="onSubmit()">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Sign in
         </button>

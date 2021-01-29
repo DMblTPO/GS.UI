@@ -21,8 +21,8 @@
   background-color: $col-dark-grey;
 }
 
-.well {
-  background-color: $col-dark-transparent;
+.bg-light-grey-gs {
+  background-color: $col-light-grey !important;
 }
 
 .bg-grey {
@@ -35,4 +35,8 @@
 
 .bg-secondary {
   background-color: $col-dark-grey !important;
+}
+
+.well {
+  background-color: $col-dark-transparent;
 }

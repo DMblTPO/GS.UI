@@ -1,0 +1,19 @@
+@import '_variables';
+@import '../main-layout';
+
+$menu-logo-font-size: 20px;
+$menu-logo-font-weight: 800;
+$menu-logo-icon-border: 3px;
+$menu-logo-icon-width: 36px;
+
+.logo-title {
+  @include logo-title($menu-logo-font-size, $menu-logo-font-weight);
+}
+
+.logo-icon {
+  @include logo-icon($menu-logo-icon-border, $menu-logo-icon-width);
+}
+
+.user-menu {
+  @include user-menu($col-secondary);
+}

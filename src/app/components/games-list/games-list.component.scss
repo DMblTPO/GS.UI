@@ -22,14 +22,14 @@
 }
 
 .search-input {
-  width: 250px;
-  img {
-    margin: 0 8px 2px 8px;
-    filter: invert(1);
+  width: 200px;
+  span {
+    font-size: 20px;
+    vertical-align: middle;
   }
   input {
     color: white;
-    border: 0 solid;
+    border: 0;
     background-color: transparent;
   }
   input:focus {

@@ -29,12 +29,14 @@
       <input type="checkbox" class="form-check-input" formControlName="rememberMe" />
       <label class="form-check-label" for="rememberMe">Remember me</label>
     </div>
-    <div class="d-flex justify-content-center py-3">
-      <button [disabled]="loading" class="btn btn-success" (click)="onSubmit()">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-        Sign in
-      </button>
-      <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{ error }}</div>
+    <div class="d-flex flex-column">
+      <div *ngIf="error" class="d-flex justify-content-center text-danger">{{ error }}</div>
+      <div class="d-flex justify-content-center py-3">
+        <button [disabled]="loading" class="btn btn-success" (click)="onSubmit()">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Sign in
+        </button>
+      </div>
     </div>
   </form>
 </div>

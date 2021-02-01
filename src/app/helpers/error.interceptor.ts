@@ -11,13 +11,14 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((err) => {
+        let error = 'Something goes wrong';
         if (err.status === 401) {
           // auto logout if 401 response returned from api
           this.authenticationService.logout();
-          location.reload();
+          error = 'Incorrect Username or Password';
+        } else {
+          error = err.error.message || error;
         }
-
-        const error = err.error.message || err.statusText;
         return throwError(error);
       })
     );

@@ -30,7 +30,10 @@ export class MainMenuComponent implements OnInit {
   }
 
   openLoginModal() {
-    this.bsModalRef = this.modalService.show(LoginComponent, { class: 'modal-padding-top' });
+    this.bsModalRef = this.modalService.show(LoginComponent, {
+      class: 'modal-padding-top',
+    });
+    this.bsModalRef.content.showAsModal = true;
   }
 
   logout() {

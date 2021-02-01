@@ -2,7 +2,7 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '@app/services';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -14,14 +14,16 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  error = '';
+  error = null;
+  showAsModal = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private bsModalRef: BsModalRef
+    private bsModalRef: BsModalRef,
+    private modalService: BsModalService
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
@@ -33,6 +35,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
+      rememberMe: [false, Validators.nullValidator],
     });
 
     // get return url from route parameters or default to '/'
@@ -58,7 +61,10 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.router.navigate([this.returnUrl]);
+          if (!this.showAsModal) {
+            this.router.navigate([this.returnUrl]);
+            return;
+          }
           this.bsModalRef.hide();
         },
         (error) => {

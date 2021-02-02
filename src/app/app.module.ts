@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GamesListComponent } from './components/games-list/games-list.component';
@@ -28,6 +29,7 @@ import { GamesService } from './services/games.service';
     HttpClientModule,
     BrowserAnimationsModule,
     ModalModule.forRoot(),
+    PopoverModule.forRoot(),
   ],
   providers: [
     GamesService,

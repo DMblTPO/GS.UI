@@ -2,7 +2,15 @@
   <div class="row p-3">
     <div class="col d-flex align-items-center">
       <div class="float-left">
-        <button type="button" class="btn btn-secondary btn-sm bg-grey">+ Add genre</button>
+        <button
+          type="button"
+          class="btn btn-secondary btn-sm bg-grey"
+          [popover]="popAddGenres"
+          placement="bottom left"
+          outsideClick="true"
+          containerClass="genre-pop-menu-max-width"
+          >+ Add genre</button
+        >
       </div>
     </div>
     <div class="col d-flex align-items-center justify-content-end">
@@ -64,6 +72,24 @@
       <div class="col text-truncate font-weight-light genres">{{ showGenres(game.genres) }}</div>
       <div class="w-100"></div>
       <div class="col text-truncate font-weight-bold description">{{ game.name }}</div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #popAddGenres>
+  <div class="container genre-menu">
+    <div class="row row-cols-2 p-3">
+      <ng-container *ngFor="let genre of genres | async; index as i">
+        <div class="col-6 my-2">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            [name]="'genre' + i"
+            [id]="'checkboxGenre' + i"
+          />
+          <label class="form-check-label" [for]="'checkboxGenre' + i">{{ genre }}</label>
+        </div>
+      </ng-container>
     </div>
   </div>
 </ng-template>

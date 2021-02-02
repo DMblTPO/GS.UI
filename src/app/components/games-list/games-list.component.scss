@@ -54,3 +54,11 @@
     font-size: 0.9rem;
   }
 }
+
+.genre-menu {
+  width: 300px;
+}
+
+:host ::ng-deep .popover {
+  max-width: 100%;
+}

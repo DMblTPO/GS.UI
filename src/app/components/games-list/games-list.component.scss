@@ -55,7 +55,14 @@
   }
 }
 
-.genre-menu {
+.filter-row {
+  button.btn-sm,
+  .search-input input {
+    font-size: 0.75rem !important;
+  }
+}
+
+.genre-filter-menu {
   width: 300px;
 }
 

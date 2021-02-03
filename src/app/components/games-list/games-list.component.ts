@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GamesService } from '@app/services/games.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 import { Game } from 'src/app/models/game';
 
 @Component({
@@ -10,17 +9,35 @@ import { Game } from 'src/app/models/game';
   styleUrls: ['./games-list.component.scss'],
 })
 export class GamesListComponent implements OnInit {
-  games: Observable<Game[]>;
-  genres: Observable<string[]>;
+  games: Game[];
+  genres: string[];
+  selectedGenres: string[] = [];
+
+  get isAnySelected() {
+    return this.selectedGenres && this.selectedGenres.length > 0;
+  }
+
+  get filteredGames() {
+    if (this.isAnySelected) {
+      return this.games.filter(
+        (game) => game.genres.findIndex((g) => this.selectedGenres.includes(g)) > -1
+      );
+    }
+    return this.games;
+  }
 
   constructor(private readonly gamesService: GamesService) {}
 
   ngOnInit(): void {
-    this.games = this.gamesService.getGames();
-    this.genres = this.games.pipe(
-      map((x) => x.reduce((acc, val) => acc.concat(val.genres), [])),
-      map((x) => x.filter((v, i, a) => a.indexOf(v) === i))
-    );
+    this.gamesService
+      .getGames()
+      .pipe(first())
+      .subscribe((x) => {
+        this.games = x;
+        this.genres = this.games
+          .reduce((acc, val) => acc.concat(val.genres), [])
+          .filter((v, i, a) => a.indexOf(v) === i);
+      });
   }
 
   showGenres(genres: string[]) {
@@ -28,5 +45,14 @@ export class GamesListComponent implements OnInit {
       return genres.join(' / ');
     }
     return 'RPG / First person shooter';
+  }
+
+  toggleGenre(event: Event, genre: string) {
+    const target = event.target as HTMLInputElement;
+    if (target.checked) {
+      this.selectedGenres.push(genre);
+      return;
+    }
+    this.selectedGenres = [...this.selectedGenres.filter((x) => x !== genre)];
   }
 }

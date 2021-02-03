@@ -1,15 +1,22 @@
 <div class="container main-list bg-secondary h-100">
-  <div class="row p-3">
-    <div class="col d-flex align-items-center">
-      <div class="float-left">
+  <div class="row p-3 filter-row">
+    <div class="col-8 d-flex align-items-center">
+      <div class="float-left mr-2">
         <button
           type="button"
           class="btn btn-secondary btn-sm bg-grey"
           [popover]="popAddGenres"
-          placement="bottom left"
+          placement="bottom center"
           outsideClick="true"
-          containerClass="genre-pop-menu-max-width"
           >+ Add genre</button
+        >
+      </div>
+      <div *ngIf="isAnySelected" class="float-left">
+        <button
+          *ngFor="let selGenre of selectedGenres"
+          class="mr-2 btn btn-primary btn-sm"
+          (click)="toggleGenre({ target: { checked: false } }, selGenre)"
+          >{{ selGenre + ' ' }}X</button
         >
       </div>
     </div>
@@ -25,7 +32,7 @@
 
   <div class="container bg-secondary">
     <div class="row my-2">
-      <ng-container *ngFor="let game of games | async; index as i">
+      <ng-container *ngFor="let game of filteredGames; index as i">
         <ng-container
           *ngTemplateOutlet="i % 4 === 0 ? wideDice : normalDice; context: { $implicit: game }"
         >
@@ -77,15 +84,16 @@
 </ng-template>
 
 <ng-template #popAddGenres>
-  <div class="container genre-menu">
+  <div class="container genre-filter-menu">
     <div class="row row-cols-2 p-3">
-      <ng-container *ngFor="let genre of genres | async; index as i">
+      <ng-container *ngFor="let genre of genres; index as i">
         <div class="col-6 my-2">
           <input
             type="checkbox"
             class="form-check-input"
             [name]="'genre' + i"
             [id]="'checkboxGenre' + i"
+            (click)="toggleGenre($event, genre)"
           />
           <label class="form-check-label" [for]="'checkboxGenre' + i">{{ genre }}</label>
         </div>

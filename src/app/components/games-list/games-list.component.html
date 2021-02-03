@@ -16,7 +16,7 @@
           *ngFor="let selGenre of selectedGenres"
           class="mr-2 btn btn-primary btn-sm"
           (click)="toggleGenre({ target: { checked: false } }, selGenre)"
-          >{{ selGenre + ' ' }}X</button
+          >{{ selGenre + '  ' }}X</button
         >
       </div>
     </div>
@@ -24,7 +24,13 @@
       <div class="float-right">
         <div class="search-input bg-grey d-table">
           <span class="icon-gs-search pl-1 d-table-cell"></span>
-          <input type="text" class="text-white d-table-cell" />
+          <input
+            type="text"
+            class="text-white d-table-cell"
+            appDelayedInput
+            (delayedInput)="search($event)"
+            [delayTime]="600"
+          />
         </div>
       </div>
     </div>

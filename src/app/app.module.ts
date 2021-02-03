@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { GamesListComponent } from './components/games-list/games-list.component';
 import { LoginComponent } from './components/login';
 import { FooterMenuComponent, MainMenuComponent } from './components/main-layout';
+import { DelayedInputDirective } from './directives/delayed-input/delayed-input.directive';
 import { ErrorInterceptor, JwtInterceptor } from './helpers';
 import { GamesService } from './services/games.service';
 
@@ -20,6 +21,7 @@ import { GamesService } from './services/games.service';
     MainMenuComponent,
     FooterMenuComponent,
     LoginComponent,
+    DelayedInputDirective,
   ],
   imports: [
     BrowserModule,

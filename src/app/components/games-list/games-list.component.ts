@@ -12,18 +12,27 @@ export class GamesListComponent implements OnInit {
   games: Game[];
   genres: string[];
   selectedGenres: string[] = [];
+  searchText = '';
 
   get isAnySelected() {
     return this.selectedGenres && this.selectedGenres.length > 0;
   }
 
   get filteredGames() {
+    let filteredByGenre = (game: Game) => true;
+    let filteredBySearch = (game: Game) => true;
     if (this.isAnySelected) {
-      return this.games.filter(
-        (game) => game.genres.findIndex((g) => this.selectedGenres.includes(g)) > -1
-      );
+      filteredByGenre = (game) => {
+        return game.genres.findIndex((g) => this.selectedGenres.includes(g)) > -1;
+      };
     }
-    return this.games;
+    if (this.searchText) {
+      filteredBySearch = (game) => {
+        const name = game.name.toLowerCase();
+        return name.indexOf(this.searchText) > -1;
+      };
+    }
+    return this.games.filter(filteredByGenre).filter(filteredBySearch);
   }
 
   constructor(private readonly gamesService: GamesService) {}
@@ -54,5 +63,9 @@ export class GamesListComponent implements OnInit {
       return;
     }
     this.selectedGenres = [...this.selectedGenres.filter((x) => x !== genre)];
+  }
+
+  search(event: Event) {
+    this.searchText = (event.target as HTMLInputElement).value.toLowerCase();
   }
 }

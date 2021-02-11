@@ -1,12 +1,13 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthenticationService } from '@app/services';
+import { GameStoreState, logoutUser } from '@app/store';
+import { Store } from '@ngrx/store';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(private readonly store: Store<GameStoreState>) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
@@ -14,7 +15,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         let error = 'Something goes wrong';
         if (err.status === 401) {
           // auto logout if 401 response returned from api
-          this.authenticationService.logout();
+          this.store.dispatch(logoutUser());
           error = 'Incorrect Username or Password';
         } else {
           error = err.error.message || error;

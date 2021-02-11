@@ -2,7 +2,7 @@
   <div class="container px-5 py-2">
     <a class="navbar-brand d-table" href="#">
       <div class="d-table-cell logo-icon my-auto mx-auto text-center"
-        ><span class="icon-gs-star"></span
+        ><span class="icon-gs-filled-star"></span
       ></div>
       <div class="d-table-cell pl-1"><b>Game store</b></div>
     </a>
@@ -23,7 +23,7 @@
     <div class="col">
       <ul class="nav justify-content-end user-menu">
         <ng-container
-          *ngTemplateOutlet="currentUser ? logoutTemplate : signInTemplate"
+          *ngTemplateOutlet="(currentUser$ | async) ? logoutTemplate : signInTemplate"
         ></ng-container>
       </ul>
     </div>
@@ -31,17 +31,28 @@
 </nav>
 
 <ng-template #signInTemplate>
+  <ng-container *ngTemplateOutlet="shoppingCart"></ng-container>
   <li class="nav-item"><a class="nav-link" href="#" (click)="openLoginModal()">Sign in</a></li>
 </ng-template>
 
 <ng-template #logoutTemplate>
   <li class="nav-item">
     <a class="nav-link" href="#">
-      <span class="icon-gs-user"></span>
-      {{ currentUser.userName }}
+      <span class="icon-gs-filled-user-2"></span>
+      {{ (currentUser$ | async).userName }}
     </a></li
   >
+  <ng-container *ngTemplateOutlet="shoppingCart"></ng-container>
   <li class="nav-item"
     ><a class="nav-link" href="#" (click)="logout()"><span class="icon-gs-logout"></span></a
   ></li>
+</ng-template>
+
+<ng-template #shoppingCart>
+  <li *ngIf="(shoppingCartCapacity$ | async) > 0" class="nav-item">
+    <a class="nav-link" href="#">
+      <span class="icon-gs-cart"></span>
+      {{ shoppingCartCapacity$ | async }}
+    </a>
+  </li>
 </ng-template>

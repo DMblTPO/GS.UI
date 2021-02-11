@@ -2,7 +2,9 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '@app/services';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { GameStoreState, loginSuccessUser } from '@app/store';
+import { Store } from '@ngrx/store';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -18,18 +20,13 @@ export class LoginComponent implements OnInit {
   showAsModal = false;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private authenticationService: AuthenticationService,
-    private bsModalRef: BsModalRef,
-    private modalService: BsModalService
-  ) {
-    // redirect to home if already logged in
-    if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
-    }
-  }
+    private readonly store: Store<GameStoreState>,
+    private readonly formBuilder: FormBuilder,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly authenticationService: AuthenticationService,
+    private readonly bsModalRef: BsModalRef
+  ) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -60,7 +57,8 @@ export class LoginComponent implements OnInit {
       .login(this.frm.username.value, this.frm.password.value)
       .pipe(first())
       .subscribe(
-        (data) => {
+        (user) => {
+          this.store.dispatch(loginSuccessUser({ user }));
           if (!this.showAsModal) {
             this.router.navigate([this.returnUrl]);
             return;

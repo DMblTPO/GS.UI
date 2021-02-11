@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { GamesService } from '@app/services/games.service';
-import { first } from 'rxjs/operators';
+import { Order, OrderItem } from '@app/models';
+import {
+  addItemToOrder,
+  allGamesStor,
+  GameStoreState,
+  orderStor,
+  startLoadingGames,
+} from '@app/store';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Game } from 'src/app/models/game';
 
 @Component({
@@ -9,16 +18,18 @@ import { Game } from 'src/app/models/game';
   styleUrls: ['./games-list.component.scss'],
 })
 export class GamesListComponent implements OnInit {
-  games: Game[];
-  genres: string[];
+  games$: Observable<Game[]>;
+  genres$: Observable<string[]>;
   selectedGenres: string[] = [];
   searchText = '';
+
+  shoppingCart$: Observable<Order>;
 
   get isAnySelected() {
     return this.selectedGenres && this.selectedGenres.length > 0;
   }
 
-  get filteredGames() {
+  get filteredGames$() {
     let filteredByGenre = (game: Game) => true;
     let filteredBySearch = (game: Game) => true;
     if (this.isAnySelected) {
@@ -32,21 +43,22 @@ export class GamesListComponent implements OnInit {
         return name.indexOf(this.searchText) > -1;
       };
     }
-    return this.games.filter(filteredByGenre).filter(filteredBySearch);
+    return this.games$.pipe(map((games) => games.filter(filteredByGenre).filter(filteredBySearch)));
   }
 
-  constructor(private readonly gamesService: GamesService) {}
+  constructor(private readonly store: Store<GameStoreState>) {}
 
   ngOnInit(): void {
-    this.gamesService
-      .getGames()
-      .pipe(first())
-      .subscribe((x) => {
-        this.games = x;
-        this.genres = this.games
+    this.games$ = this.store.select(allGamesStor);
+    this.genres$ = this.games$.pipe(
+      map((games) =>
+        games
           .reduce((acc, val) => acc.concat(val.genres), [])
-          .filter((v, i, a) => a.indexOf(v) === i);
-      });
+          .filter((v, i, a) => a.indexOf(v) === i)
+      )
+    );
+    this.shoppingCart$ = this.store.select(orderStor);
+    this.store.dispatch(startLoadingGames());
   }
 
   showGenres(genres: string[]) {
@@ -67,5 +79,14 @@ export class GamesListComponent implements OnInit {
 
   search(event: Event) {
     this.searchText = (event.target as HTMLInputElement).value.toLowerCase();
+  }
+
+  putItemToCart(game: Game) {
+    const item = {
+      game,
+      price: game.price,
+      qty: 1,
+    } as OrderItem;
+    this.store.dispatch(addItemToOrder({ item }));
   }
 }

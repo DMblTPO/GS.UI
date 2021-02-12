@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginComponent } from '@app/components/login';
+import { LoginComponent } from '@app/components/login/login.component';
 import { User } from '@app/models';
 import { currentUserStor, GameStoreState, logoutUser, orderItemsQtyStor } from '@app/store';
 import { Store } from '@ngrx/store';

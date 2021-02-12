@@ -1,0 +1,44 @@
+<div class="container bg-secondary h-100 p-5">
+  <div class="row">
+    <div class="col m-2">
+      <h4 class="float-left">Your cart</h4>
+      <button type="button" class="btn btn-success btn-sm float-right px-3"><b>Proceed</b></button>
+      <h3 class="mr-4 float-right">Total: ${{ orderTotal$ | async }}</h3>
+    </div>
+  </div>
+  <div *ngFor="let item of orderItems$ | async" class="row px-3 py-4 m-2 cart-item">
+    <div class="col">
+      <img [src]="item.game.pictureUri" class="cart-pic" />
+    </div>
+    <div class="col-4 d-flex align-items-center">
+      <div class="d-table">
+        <div class="d-table-row item-title">{{ item.game.name }}</div>
+        <div class="d-table-row item-price">${{ item.price }}</div>
+      </div>
+    </div>
+    <div class="col d-flex align-items-center">
+      <div class="btn-group btn-group-sm mr-2 item-counter" role="group" aria-label="Second group">
+        <button type="button" class="btn btn-success qty-decrease" (click)="decrease(item.game.id)"
+          ><span class="icon-gs-minus"></span
+        ></button>
+        <div class="item-qty bg-success"
+          ><span>{{ item.qty }}</span></div
+        >
+        <button type="button" class="btn btn-success qty-increase" (click)="increase(item.game.id)"
+          ><span class="icon-gs-plus"></span
+        ></button>
+      </div>
+    </div>
+    <div class="col d-flex align-items-center">
+      <div class="d-table">
+        <div class="d-table-row item-total">Total:</div>
+        <div class="d-table-row item-total-price">${{ item.price * item.qty }}</div>
+      </div>
+    </div>
+    <div class="col d-flex align-items-center justify-content-center"
+      ><a class="item-clear" (click)="clear(item.game.id)">
+        <span class="icon-gs-clear"></span>
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,23 +1,20 @@
 import { Order, OrderItem, OrderStatus } from '@app/models';
 import { Action, createReducer, on } from '@ngrx/store';
-import { addItemToOrder, loadOrderSuccessfully } from '../actions/order.actions';
+import { addItemToOrder, changeQtyOfItem, loadOrderSuccessfully } from '../actions/order.actions';
 import { OrderState } from '../app.state';
 
 const defaultOrderState: OrderState = {
-  order: null,
+  order: {
+    status: OrderStatus.created,
+    items: [],
+  } as Order,
 };
 
 const reducerOrderCreator = createReducer(
   defaultOrderState,
   on(loadOrderSuccessfully, (state, { order }) => ({ ...state, order })),
   on(addItemToOrder, (state, { item }) => {
-    let order = state.order;
-    if (!order) {
-      order = {
-        status: OrderStatus.created,
-        items: [],
-      } as Order;
-    }
+    const order = state.order;
     let isExisted = false;
     const items: OrderItem[] = [];
     order.items.forEach((x) => {
@@ -32,6 +29,21 @@ const reducerOrderCreator = createReducer(
       items.push(item);
     }
     return { ...state, order: { ...order, items } };
+  }),
+  on(changeQtyOfItem, (state, { id, delta }) => {
+    const items: OrderItem[] = [];
+    state.order.items.forEach((x) => {
+      if (x.game.id === id) {
+        if (delta === 0) {
+          return;
+        }
+        const newQty = x.qty + delta;
+        items.push({ ...x, qty: newQty <= 0 ? 0 : newQty });
+        return;
+      }
+      items.push(x);
+    });
+    return { ...state, order: { ...state.order, items } };
   })
 );
 

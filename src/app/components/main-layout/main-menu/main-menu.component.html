@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark pb-0">
   <div class="container px-5 py-2">
-    <a class="navbar-brand d-table" href="#">
+    <a class="navbar-brand d-table" routerLink="/">
       <div class="d-table-cell logo-icon my-auto mx-auto text-center"
         ><span class="icon-gs-filled-star"></span
       ></div>
@@ -8,16 +8,16 @@
     </a>
     <ul class="navbar-nav pt-1">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Games <span class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLink="/">Games <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Community</a>
+        <a class="nav-link" routerLink="/">Community</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
+        <a class="nav-link" routerLink="/">About</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Support</a>
+        <a class="nav-link" routerLink="/">Support</a>
       </li>
     </ul>
     <div class="col">
@@ -32,25 +32,25 @@
 
 <ng-template #signInTemplate>
   <ng-container *ngTemplateOutlet="shoppingCart"></ng-container>
-  <li class="nav-item"><a class="nav-link" href="#" (click)="openLoginModal()">Sign in</a></li>
+  <li class="nav-item"><a class="nav-link" (click)="openLoginModal()">Sign in</a></li>
 </ng-template>
 
 <ng-template #logoutTemplate>
   <li class="nav-item">
-    <a class="nav-link" href="#">
+    <a class="nav-link" routerLink="/">
       <span class="icon-gs-filled-user-2"></span>
       {{ (currentUser$ | async).userName }}
     </a></li
   >
   <ng-container *ngTemplateOutlet="shoppingCart"></ng-container>
   <li class="nav-item"
-    ><a class="nav-link" href="#" (click)="logout()"><span class="icon-gs-logout"></span></a
+    ><a class="nav-link" (click)="logout()"><span class="icon-gs-logout"></span></a
   ></li>
 </ng-template>
 
 <ng-template #shoppingCart>
   <li *ngIf="(shoppingCartCapacity$ | async) > 0" class="nav-item">
-    <a class="nav-link" href="#">
+    <a class="nav-link" href="#" routerLink="/shopping-cart">
       <span class="icon-gs-cart"></span>
       {{ shoppingCartCapacity$ | async }}
     </a>

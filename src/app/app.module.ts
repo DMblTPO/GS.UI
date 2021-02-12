@@ -9,9 +9,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GamesListComponent } from './components/games-list/games-list.component';
-import { LoginComponent } from './components/login';
-import { FooterMenuComponent, MainMenuComponent } from './components/main-layout';
+import {
+  FooterMenuComponent,
+  GamesListComponent,
+  LoginComponent,
+  MainMenuComponent,
+  ShoppingCartComponent,
+} from './components';
 import { DelayedInputDirective } from './directives/delayed-input/delayed-input.directive';
 import { ErrorInterceptor, JwtInterceptor } from './helpers';
 import { AuthenticationService } from './services';
@@ -23,6 +27,7 @@ import { GamesEffects, gameStoreReducers, OrderEffects, UserEffects } from './st
   declarations: [
     AppComponent,
     GamesListComponent,
+    ShoppingCartComponent,
     MainMenuComponent,
     FooterMenuComponent,
     LoginComponent,

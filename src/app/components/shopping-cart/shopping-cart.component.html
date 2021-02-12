@@ -3,7 +3,7 @@
     <div class="col m-2">
       <h4 class="float-left">Your cart</h4>
       <button type="button" class="btn btn-success btn-sm float-right px-3"><b>Proceed</b></button>
-      <h3 class="mr-4 float-right">Total: ${{ orderTotal$ | async }}</h3>
+      <h3 class="mr-4 float-right">Total: {{ orderTotal$ | async | currency }}</h3>
     </div>
   </div>
   <div *ngFor="let item of orderItems$ | async" class="row px-3 py-4 m-2 cart-item">
@@ -13,7 +13,7 @@
     <div class="col-4 d-flex align-items-center">
       <div class="d-table">
         <div class="d-table-row item-title">{{ item.game.name }}</div>
-        <div class="d-table-row item-price">${{ item.price }}</div>
+        <div class="d-table-row item-price">{{ item.price | currency }}</div>
       </div>
     </div>
     <div class="col d-flex align-items-center">
@@ -32,7 +32,7 @@
     <div class="col d-flex align-items-center">
       <div class="d-table">
         <div class="d-table-row item-total">Total:</div>
-        <div class="d-table-row item-total-price">${{ item.price * item.qty }}</div>
+        <div class="d-table-row item-total-price">{{ item.price * item.qty | currency }}</div>
       </div>
     </div>
     <div class="col d-flex align-items-center justify-content-center"

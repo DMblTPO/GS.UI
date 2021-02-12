@@ -76,7 +76,7 @@
   <div class="col px-0 price-tag" [ngClass]="isWide ? 'well' : 'bg-secondary'">
     <div class="row" [ngClass]="{ 'px-3': isWide }">
       <div class="col">
-        <div class="font-weight-light price">${{ game.price }}</div>
+        <div class="font-weight-light price">{{ game.price | currency }}</div>
       </div>
       <div class="col d-flex align-items-center justify-content-end">
         <button

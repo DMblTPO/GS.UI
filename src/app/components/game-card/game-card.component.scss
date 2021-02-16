@@ -1,0 +1,16 @@
+.game-card {
+  &-image {
+    height: 420px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  &-price {
+    font-size: xx-large;
+    font-weight: lighter;
+  }
+  &-buy {
+    font-size: x-large;
+    font-weight: bold;
+  }
+}

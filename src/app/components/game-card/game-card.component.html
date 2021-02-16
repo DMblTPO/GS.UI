@@ -1,0 +1,36 @@
+<div class="container scroll-container bg-secondary h-100 game-card">
+  <ng-container *ngTemplateOutlet="gameCard; context: { $implicit: game$ | async }"></ng-container>
+</div>
+
+<ng-template #gameCard let-game>
+  <div class="row px-3 py-4">
+    <div class="col-12 px-3">
+      <div
+        class="game-card-image"
+        [ngStyle]="{ 'background-image': 'url(\'' + game.pictureWideUri + '\')' }"
+      >
+      </div>
+    </div>
+    <div class="col-12 pt-5">
+      <h4 class="font-weight-bold">{{ game.name }}</h4>
+    </div>
+    <div class="col-12 d-flex align-items-center pt-2">
+      <div class="float-left game-card-price">{{ game.price | currency }}</div>
+      <button
+        role="button"
+        class="btn btn-success btn-sm float-right ml-auto px-5"
+        (click)="putItemToCart(game)"
+        ><span class="game-card-buy">BUY</span></button
+      >
+    </div>
+    <div class="col-12">
+      <hr />
+      <span *ngFor="let genre of game.genres" class="btn btn-sm-gs btn-genre mr-2">{{
+        genre
+      }}</span>
+    </div>
+    <div class="col-12 pt-5">
+      {{ game.description }}
+    </div>
+  </div>
+</ng-template>

@@ -19,10 +19,12 @@
   background-size: cover;
   background-position: center;
   height: 310px;
+  cursor: pointer;
 }
 
 .price-tag {
   max-height: 90px;
+  cursor: default;
   .price {
     font-size: 2rem;
   }

@@ -41,6 +41,18 @@
   background-color: $col-dark-transparent;
 }
 
+.btn-sm-gs {
+  padding: 0.15rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1;
+  border-radius: 0.75rem;
+}
+
+.btn-genre {
+  font-weight: lighter;
+  background-color: $col-genre-blue;
+}
+
 .modal-content {
   border: 0;
   background-color: transparent !important;
@@ -71,4 +83,8 @@
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #e2e2e2;
   }
+}
+
+hr {
+  border-bottom: 1px solid $col-secondary;
 }

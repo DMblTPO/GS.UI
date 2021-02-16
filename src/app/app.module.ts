@@ -11,12 +11,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {
   FooterMenuComponent,
+  GameCardComponent,
   GamesListComponent,
   LoginComponent,
   MainMenuComponent,
   ShoppingCartComponent,
 } from './components';
-import { DelayedInputDirective } from './directives/delayed-input/delayed-input.directive';
+import { ClickStopPropagationDirective, DelayedInputDirective } from './directives';
 import { ErrorInterceptor, JwtInterceptor } from './helpers';
 import { AuthenticationService } from './services';
 import { GamesService } from './services/games.service';
@@ -27,11 +28,13 @@ import { GamesEffects, gameStoreReducers, OrderEffects, UserEffects } from './st
   declarations: [
     AppComponent,
     GamesListComponent,
+    GameCardComponent,
     ShoppingCartComponent,
     MainMenuComponent,
     FooterMenuComponent,
     LoginComponent,
     DelayedInputDirective,
+    ClickStopPropagationDirective,
   ],
   imports: [
     BrowserModule,

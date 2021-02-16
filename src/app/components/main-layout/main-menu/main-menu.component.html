@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark pb-0">
-  <div class="container px-5 py-2">
-    <a class="navbar-brand d-table" routerLink="/">
+  <div class="container p-2">
+    <a class="navbar-brand d-table" routerLink="/games">
       <div class="d-table-cell logo-icon my-auto mx-auto text-center"
         ><span class="icon-gs-filled-star"></span
       ></div>
@@ -8,16 +8,16 @@
     </a>
     <ul class="navbar-nav pt-1">
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/">Games <span class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLink="/games">Games <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/">Community</a>
+        <a class="nav-link" routerLink="/community">Community</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/">About</a>
+        <a class="nav-link" routerLink="/about">About</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/">Support</a>
+        <a class="nav-link" routerLink="/support">Support</a>
       </li>
     </ul>
     <div class="col">
@@ -37,7 +37,7 @@
 
 <ng-template #logoutTemplate>
   <li class="nav-item">
-    <a class="nav-link" routerLink="/">
+    <a class="nav-link" routerLink="/profile">
       <span class="icon-gs-filled-user-2"></span>
       {{ (currentUser$ | async).userName }}
     </a></li

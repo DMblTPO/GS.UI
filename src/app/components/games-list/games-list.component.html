@@ -53,6 +53,7 @@
     <div
       class="d-flex align-items-end dice"
       [ngStyle]="{ 'background-image': 'url(\'' + game.pictureWideUri + '\')' }"
+      (click)="openGameCard(game.id)"
     >
       <ng-container *ngTemplateOutlet="priceTag; context: { game: game, isWide: true }">
       </ng-container>
@@ -65,6 +66,7 @@
     <div
       class="d-flex align-items-end dice"
       [ngStyle]="{ 'background-image': 'url(\'' + game.pictureUri + '\')' }"
+      (click)="openGameCard(game.id)"
     >
       <ng-container *ngTemplateOutlet="priceTag; context: { game: game, isWide: false }">
       </ng-container>
@@ -73,14 +75,16 @@
 </ng-template>
 
 <ng-template #priceTag let-game="game" let-isWide="isWide">
-  <div class="col px-0 price-tag" [ngClass]="isWide ? 'well' : 'bg-secondary'">
+  <div
+    class="col px-0 price-tag"
+    [ngClass]="isWide ? 'well' : 'bg-secondary'"
+    appClickStopPropagation
+  >
     <div class="row" [ngClass]="{ 'px-3': isWide }">
-      <div class="col">
+      <div class="col d-flex align-items-center">
         <div class="font-weight-light price">{{ game.price | currency }}</div>
-      </div>
-      <div class="col d-flex align-items-center justify-content-end">
         <button
-          class="btn btn-success btn-sm px-4 float-right font-weight-bold"
+          class="btn btn-success btn-sm px-4 ml-auto font-weight-bold"
           (click)="putItemToCart(game)"
           >BUY</button
         >

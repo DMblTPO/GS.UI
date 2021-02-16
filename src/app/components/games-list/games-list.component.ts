@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Order, OrderItem } from '@app/models';
 import {
   addItemToOrder,
@@ -46,7 +47,7 @@ export class GamesListComponent implements OnInit {
     return this.games$.pipe(map((games) => games.filter(filteredByGenre).filter(filteredBySearch)));
   }
 
-  constructor(private readonly store: Store<GameStoreState>) {}
+  constructor(private readonly store: Store<GameStoreState>, private readonly router: Router) {}
 
   ngOnInit(): void {
     this.games$ = this.store.select(allGamesStor);
@@ -88,5 +89,9 @@ export class GamesListComponent implements OnInit {
       qty: 1,
     } as OrderItem;
     this.store.dispatch(addItemToOrder({ item }));
+  }
+
+  openGameCard(gameId: number) {
+    this.router.navigate([`/games/${gameId}`]);
   }
 }

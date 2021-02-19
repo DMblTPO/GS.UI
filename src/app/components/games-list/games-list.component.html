@@ -14,7 +14,7 @@
       <div *ngIf="isAnySelected" class="float-left">
         <button
           *ngFor="let selGenre of selectedGenres"
-          class="mr-2 btn btn-primary btn-sm"
+          class="btn btn-sm-gs btn-genre mr-2"
           (click)="toggleGenre({ target: { checked: false } }, selGenre)"
           >{{ selGenre + '  ' }}X</button
         >

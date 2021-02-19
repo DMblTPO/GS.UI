@@ -17,3 +17,7 @@ $menu-logo-icon-width: 36px;
 .user-menu {
   @include user-menu($col-secondary);
 }
+
+.nav-link {
+  cursor: pointer;
+}

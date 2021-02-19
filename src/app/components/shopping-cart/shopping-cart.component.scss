@@ -14,8 +14,7 @@
       cursor: default;
     }
 
-    &-title,
-    &-total {
+    &-title {
       font-size: smaller;
       font-weight: bold;
     }
@@ -31,9 +30,16 @@
       font-weight: lighter;
     }
 
-    &-total-price {
-      font-size: xx-large;
-      font-weight: 600;
+    &-total {
+      width: 136px;
+      overflow: visible;
+      &-text {
+        @extend .item-title;
+      }
+      &-price {
+        font-size: xx-large;
+        font-weight: 600;
+      }
     }
 
     &-counter {

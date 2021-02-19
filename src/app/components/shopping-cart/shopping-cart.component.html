@@ -1,4 +1,4 @@
-<div class="container bg-secondary scroll-container h-100 p-5">
+<div class="container bg-secondary scroll-container h-100 p-4">
   <div class="row">
     <div class="col m-2">
       <h4 class="float-left">Your cart</h4>
@@ -6,7 +6,7 @@
       <h3 class="mr-4 float-right">Total: {{ orderTotal$ | async | currency }}</h3>
     </div>
   </div>
-  <div *ngFor="let item of orderItems$ | async" class="row px-3 py-4 m-2 cart-item">
+  <div *ngFor="let item of orderItems$ | async" class="row px-2 py-4 m-1 cart-item">
     <div class="col">
       <img [src]="item.game.pictureUri" class="cart-pic" />
     </div>
@@ -17,8 +17,12 @@
       </div>
     </div>
     <div class="col d-flex align-items-center">
-      <div class="btn-group btn-group-sm mr-2 item-counter" role="group" aria-label="Second group">
-        <button type="button" class="btn btn-success qty-decrease" (click)="decrease(item.game.id)"
+      <div class="btn-group btn-group-sm item-counter" role="group" aria-label="Second group">
+        <button
+          type="button"
+          class="btn btn-success qty-decrease"
+          (click)="decrease(item.game.id)"
+          [disabled]="item.qty <= 0"
           ><span class="icon-gs-minus"></span
         ></button>
         <div class="item-qty bg-success"
@@ -30,9 +34,9 @@
       </div>
     </div>
     <div class="col d-flex align-items-center">
-      <div class="d-table">
-        <div class="d-table-row item-total">Total:</div>
-        <div class="d-table-row item-total-price">{{ item.price * item.qty | currency }}</div>
+      <div class="item-total">
+        <div class="item-total-text">Total:</div>
+        <div class="item-total-price">{{ item.price * item.qty | currency }}</div>
       </div>
     </div>
     <div class="col d-flex align-items-center justify-content-center"

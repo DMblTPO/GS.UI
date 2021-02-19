@@ -51,6 +51,11 @@
 .btn-genre {
   font-weight: lighter;
   background-color: $col-genre-blue;
+  border: 1px solid transparent;
+  color: $col-white;
+  &:hover {
+    border-color: $col-genre-blue-border;
+  }
 }
 
 .modal-content {
